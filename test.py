@@ -42,6 +42,31 @@ class TestStringFunctions(unittest.TestCase):
         # Kiểm tra trường hợp không có khoảng trắng để trim
         self.assertEqual(trim_whitespace("NoWhitespace"), "NoWhitespace")
 
+    def test_whitespace_only_input(self):
+        # Kiểm tra khi chuỗi đầu vào chỉ chứa khoảng trắng
+        self.assertEqual(trim_whitespace("    "), "")
+
+    def test_special_characters(self):
+        # Kiểm tra khi chuỗi đầu vào chứa ký tự đặc biệt (Unicode)
+        self.assertEqual(reverse_string("Hello, 🌟 World!"), "!dlroW 🌟 ,olleH")
+
+    def test_mixed_case(self):
+        # Kiểm tra khi chuỗi đầu vào chứa cả chữ hoa và chữ thường
+        self.assertEqual(trim_whitespace("HeLlO WoRlD"), "HeLlO WoRlD")
+
+    def test_alphanumeric(self):
+        # Kiểm tra khi chuỗi đầu vào chứa cả ký tự số và chữ cái
+        self.assertEqual(trim_whitespace("123abcXYZ"), "123abcXYZ")
+
+    def test_special_characters_and_whitespace(self):
+        # Kiểm tra khi chuỗi đầu vào chứa các ký tự đặc biệt và khoảng trắng
+        self.assertEqual(reverse_string("  @#$ Hello, 123 World! 🌟   "), "🌟 !dlroW 321 ,olleH #$@  ")
+
+    def test_large_input(self):
+        # Kiểm tra khi chuỗi đầu vào có chiều dài lớn
+        input_str = "A" * 10000
+        self.assertEqual(reverse_string(input_str), input_str[::-1])
+
 # Dừng tích hợp với coverage.py và tạo báo cáo
 cov.stop()
 cov.save()
